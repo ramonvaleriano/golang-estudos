@@ -53,4 +53,18 @@ func main() {
 
 	println("O comando digitado foi: ", comando)
 	println("O ponteiro, o endereço da variável comando é: ", &comando)
+
+	if comando != 0 {
+		if comando == 1 {
+			fmt.Println("Monitorando...")
+		} else if comando == 2 {
+			fmt.Println("Exibindo Logs...")
+		} else if comando == 3 {
+			fmt.Println("Saindo do Programa...")
+		} else {
+			fmt.Println("Opção Invalida.")
+		}
+	} else {
+		fmt.Println("Opção Invalida.")
+	}
 }
