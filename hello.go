@@ -2,10 +2,64 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 )
 
 func main() {
+
+	exibirIntroducao()
+	comando := lerComando()
+
+	// Usando If, else if e else
+	if comando != 0 {
+		if comando == 1 {
+			fmt.Println("Monitorando...")
+		} else if comando == 2 {
+			fmt.Println("Exibindo Logs...")
+		} else if comando == 0 {
+			fmt.Println("Saindo do Programa...")
+			os.Exit(0)
+		} else {
+			fmt.Println("Opção Invalida.")
+			os.Exit(-1)
+		}
+	} else {
+		fmt.Println("Opção Invalida.")
+	}
+
+	// Usando switch
+	switch comando {
+	case 1:
+		fmt.Println("Monitorando...")
+	case 2:
+		fmt.Println("Exibindo Logs...")
+	case 0:
+		fmt.Println("Saindo do Programa...")
+	default:
+		fmt.Println("Opção Invalida.")
+	}
+}
+
+func exibirIntroducao() {
+	fmt.Println("Menu: ")
+	fmt.Println("1 - Iniciar Monitoramento.")
+	fmt.Println("2 - Exibir Logs.")
+	fmt.Println("0 - Sair do Programa.")
+}
+
+func lerComando() int {
+	comando := 0
+
+	fmt.Scan(&comando)
+
+	println("O comando digitado foi: ", comando)
+	println("O ponteiro, o endereço da variável comando é: ", &comando)
+
+	return comando
+}
+
+func textosIniciaisDeAprendizado() {
 	fmt.Println("Olá mundo, aprendendo Golang.")
 
 	var nome_do_usuario string = "Ramon Valeriano"
@@ -41,43 +95,4 @@ func main() {
 
 	fmt.Println("Olá Sr. ", nome_do_usuario)
 	fmt.Println("O programa está na versão: ", versao_float)
-
-	fmt.Println("Menu: ")
-	fmt.Println("1 - Iniciar Monitoramento.")
-	fmt.Println("2 - Exibir Logs.")
-	fmt.Println("3 - Sair do Programa.")
-
-	comando := 0
-
-	fmt.Scan(&comando)
-
-	println("O comando digitado foi: ", comando)
-	println("O ponteiro, o endereço da variável comando é: ", &comando)
-
-	// Usando If, else if e else
-	if comando != 0 {
-		if comando == 1 {
-			fmt.Println("Monitorando...")
-		} else if comando == 2 {
-			fmt.Println("Exibindo Logs...")
-		} else if comando == 3 {
-			fmt.Println("Saindo do Programa...")
-		} else {
-			fmt.Println("Opção Invalida.")
-		}
-	} else {
-		fmt.Println("Opção Invalida.")
-	}
-
-	// Usando switch
-	switch comando {
-	case 1:
-		fmt.Println("Monitorando...")
-	case 2:
-		fmt.Println("Exibindo Logs...")
-	case 3:
-		fmt.Println("Saindo do Programa...")
-	default:
-		fmt.Println("Opção Invalida.")
-	}
 }
