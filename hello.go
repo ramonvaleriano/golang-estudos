@@ -54,6 +54,7 @@ func main() {
 	println("O comando digitado foi: ", comando)
 	println("O ponteiro, o endereço da variável comando é: ", &comando)
 
+	// Usando If, else if e else
 	if comando != 0 {
 		if comando == 1 {
 			fmt.Println("Monitorando...")
@@ -65,6 +66,18 @@ func main() {
 			fmt.Println("Opção Invalida.")
 		}
 	} else {
+		fmt.Println("Opção Invalida.")
+	}
+
+	// Usando switch
+	switch comando {
+	case 1:
+		fmt.Println("Monitorando...")
+	case 2:
+		fmt.Println("Exibindo Logs...")
+	case 3:
+		fmt.Println("Saindo do Programa...")
+	default:
 		fmt.Println("Opção Invalida.")
 	}
 }
