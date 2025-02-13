@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"reflect"
 )
@@ -11,34 +12,7 @@ func main() {
 	exibirIntroducao()
 	comando := lerComando()
 
-	// Usando If, else if e else
-	if comando != 0 {
-		if comando == 1 {
-			fmt.Println("Monitorando...")
-		} else if comando == 2 {
-			fmt.Println("Exibindo Logs...")
-		} else if comando == 0 {
-			fmt.Println("Saindo do Programa...")
-			os.Exit(0)
-		} else {
-			fmt.Println("Opção Invalida.")
-			os.Exit(-1)
-		}
-	} else {
-		fmt.Println("Opção Invalida.")
-	}
-
-	// Usando switch
-	switch comando {
-	case 1:
-		fmt.Println("Monitorando...")
-	case 2:
-		fmt.Println("Exibindo Logs...")
-	case 0:
-		fmt.Println("Saindo do Programa...")
-	default:
-		fmt.Println("Opção Invalida.")
-	}
+	condicionalIfElse(comando)
 }
 
 func exibirIntroducao() {
@@ -57,6 +31,53 @@ func lerComando() int {
 	println("O ponteiro, o endereço da variável comando é: ", &comando)
 
 	return comando
+}
+
+func condicionalIfElse(comando int) {
+	comandoDesistencia := false
+	if comando != 0 {
+		if comando == 1 {
+			iniciarMonitoramento()
+		} else if comando == 2 {
+			fmt.Println("Exibindo Logs...")
+		} else if comando == 0 {
+			fmt.Println("Saindo do Programa...")
+			comandoDesistencia = true
+			os.Exit(0)
+		} else {
+			fmt.Println("Opção Invalida.")
+			comandoDesistencia = true
+			os.Exit(-1)
+		}
+	} else {
+		if comandoDesistencia == true {
+			os.Exit(0)
+		}
+		fmt.Println("Opção Invalida.")
+	}
+}
+
+func condicionalSwitch(comando int) {
+	switch comando {
+	case 1:
+		iniciarMonitoramento()
+	case 2:
+		fmt.Println("Exibindo Logs...")
+	case 0:
+		fmt.Println("Saindo do Programa...")
+	default:
+		fmt.Println("Opção Invalida.")
+	}
+}
+
+func iniciarMonitoramento() {
+	fmt.Println("Iniciando Monitoramento...")
+
+	site := "https://github.com/"
+
+	response, _ := http.Get(site)
+
+	fmt.Println("O status: ", response.Status)
 }
 
 func textosIniciaisDeAprendizado() {
