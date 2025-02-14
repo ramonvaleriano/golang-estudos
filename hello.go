@@ -37,7 +37,7 @@ func condicionalIfElse(comando int) {
 	comandoDesistencia := false
 	if comando != 0 {
 		if comando == 1 {
-			iniciarMonitoramento()
+			iniciarMonitoramento(200)
 		} else if comando == 2 {
 			fmt.Println("Exibindo Logs...")
 		} else if comando == 0 {
@@ -60,7 +60,7 @@ func condicionalIfElse(comando int) {
 func condicionalSwitch(comando int) {
 	switch comando {
 	case 1:
-		iniciarMonitoramento()
+		iniciarMonitoramento(200)
 	case 2:
 		fmt.Println("Exibindo Logs...")
 	case 0:
@@ -70,13 +70,21 @@ func condicionalSwitch(comando int) {
 	}
 }
 
-func iniciarMonitoramento() {
+func iniciarMonitoramento(statusCode int) {
+	if statusCode == 0 {
+		statusCode = 200
+	}
 	fmt.Println("Iniciando Monitoramento...")
 
-	site := "https://github.com/"
+	site := fmt.Sprintf("https://httpbin.org/status/%d", statusCode)
 
-	response, _ := http.Get(site)
+	response, err := http.Get(site)
 
+	if response.StatusCode == 200 {
+		fmt.Printf("O status do site: %d", response.StatusCode)
+	} else {
+		fmt.Printf("O status do site: %d, o error: %s", response.StatusCode, err)
+	}
 	fmt.Println("O status: ", response.Status)
 }
 
