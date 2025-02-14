@@ -8,11 +8,15 @@ import (
 )
 
 func main() {
+	for {
+		exibirIntroducao()
+		comando := lerComando()
+		condicionalIfElse(comando)
 
-	exibirIntroducao()
-	comando := lerComando()
-
-	condicionalIfElse(comando)
+		if comando == 0 {
+			os.Exit(0)
+		}
+	}
 }
 
 func exibirIntroducao() {
