@@ -13,6 +13,7 @@ const delay = 5
 
 func main() {
 	//exibirNomes()
+	abrindoArquivo()
 	for {
 		exibirIntroducao()
 		comando := lerComando()
@@ -105,6 +106,16 @@ func testaSite(site string) {
 	} else {
 		fmt.Printf("O status do site: %d, o error: %s\n", response.StatusCode, err)
 	}
+}
+
+func abrindoArquivo() {
+	arquivo, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um error: ", err)
+	}
+
+	fmt.Println(arquivo)
 }
 
 func exibirNomes() {
