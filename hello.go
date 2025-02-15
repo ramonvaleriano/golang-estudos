@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"reflect"
+	"strings"
 	"time"
 )
 
@@ -84,7 +87,8 @@ func iniciarMonitoramento(statusCode int) {
 	if statusCode == 0 {
 		statusCode = 200
 	}
-	sites := [...]string{fmt.Sprintf("https://httpbin.org/status/%d", statusCode), "https://www.alura.com.br/", "https://www.xvideos.com/", "https://www.uol.com.br/"}
+	//sites := [...]string{fmt.Sprintf("https://httpbin.org/status/%d", statusCode), "https://www.alura.com.br/", "https://www.xvideos.com/", "https://www.uol.com.br/"}
+	sites := abrindoArquivo()
 
 	fmt.Println("Iniciando Monitoramento...")
 	for i := 0; i < monitoramento; i++ {
@@ -108,14 +112,31 @@ func testaSite(site string) {
 	}
 }
 
-func abrindoArquivo() {
+func abrindoArquivo() []string {
 	arquivo, err := os.Open("sites.txt")
 
 	if err != nil {
 		fmt.Println("Ocorreu um error: ", err)
 	}
 
-	fmt.Println(arquivo)
+	leitor := bufio.NewReader(arquivo)
+	var sites []string
+
+	for {
+		linha, err := leitor.ReadString('\n')
+
+		if err != nil && err != io.EOF {
+			fmt.Println("Ocorreu um error: ", err)
+		} else if err == io.EOF {
+			break
+		}
+		linha = strings.TrimSpace(linha)
+		sites = append(sites, linha)
+	}
+
+	arquivo.Close()
+
+	return sites
 }
 
 func exibirNomes() {
