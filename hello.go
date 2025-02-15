@@ -82,6 +82,10 @@ func iniciarMonitoramento(statusCode int) {
 	sites := [...]string{fmt.Sprintf("https://httpbin.org/status/%d", statusCode), "https://www.alura.com.br/", "https://www.xvideos.com/", "https://www.uol.com.br/"}
 	fmt.Println("Iniciando Monitoramento...")
 
+	for i := 0; i < len(sites); i++ {
+		println(sites[i])
+	}
+
 	site := sites[0]
 
 	response, err := http.Get(site)
@@ -110,6 +114,14 @@ func exibirNomes() {
 	nomesSlice = append(nomesSlice, "Dante", "Rayan")
 
 	fmt.Printf("\nNomes Slices: %v - Quantidade de elementos: %d - Capacidade: %d\n", nomesSlice, len(nomesSlice), cap(nomesSlice))
+
+	for indice, valor := range nomesSlice {
+		fmt.Printf("Inidice: %d - Valor: %s\n", indice, valor)
+	}
+
+	for _, value := range nomesArray {
+		fmt.Printf("Value: %s\n", value)
+	}
 }
 
 func textosIniciaisDeAprendizado() {
