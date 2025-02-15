@@ -78,9 +78,10 @@ func iniciarMonitoramento(statusCode int) {
 	if statusCode == 0 {
 		statusCode = 200
 	}
+	sites := [...]string{fmt.Sprintf("https://httpbin.org/status/%d", statusCode), "https://www.alura.com.br/", "https://www.xvideos.com/", "https://www.uol.com.br/"}
 	fmt.Println("Iniciando Monitoramento...")
 
-	site := fmt.Sprintf("https://httpbin.org/status/%d", statusCode)
+	site := sites[0]
 
 	response, err := http.Get(site)
 
