@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	exibirNomes()
 	for {
 		exibirIntroducao()
 		comando := lerComando()
@@ -91,6 +92,24 @@ func iniciarMonitoramento(statusCode int) {
 		fmt.Printf("O status do site: %d, o error: %s", response.StatusCode, err)
 	}
 	fmt.Println("O status: ", response.Status)
+}
+
+func exibirNomes() {
+	nomesArray := [3]string{"Ramon", "Milla", "Valeriano"}
+
+	nomesSlice := []string{"Ramon", "Milla", "Gabriela", "Valeriano"}
+
+	fmt.Printf("\nNomes Arrays: %v - Quantidade de elementos: %d - Capacidade: %d", nomesArray, len(nomesArray), cap(nomesArray))
+
+	fmt.Printf("\nNomes Slices: %v - Quantidade de elementos: %d - Capacidade: %d", nomesSlice, len(nomesSlice), cap(nomesSlice))
+
+	nomesSlice = append(nomesSlice, "Gael")
+
+	fmt.Printf("\nNomes Slices: %v - Quantidade de elementos: %d - Capacidade: %d", nomesSlice, len(nomesSlice), cap(nomesSlice))
+
+	nomesSlice = append(nomesSlice, "Dante", "Rayan")
+
+	fmt.Printf("\nNomes Slices: %v - Quantidade de elementos: %d - Capacidade: %d\n", nomesSlice, len(nomesSlice), cap(nomesSlice))
 }
 
 func textosIniciaisDeAprendizado() {
