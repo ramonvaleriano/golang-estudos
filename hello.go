@@ -5,10 +5,14 @@ import (
 	"net/http"
 	"os"
 	"reflect"
+	"time"
 )
 
+const monitoramento = 3
+const delay = 5
+
 func main() {
-	exibirNomes()
+	//exibirNomes()
 	for {
 		exibirIntroducao()
 		comando := lerComando()
@@ -80,22 +84,27 @@ func iniciarMonitoramento(statusCode int) {
 		statusCode = 200
 	}
 	sites := [...]string{fmt.Sprintf("https://httpbin.org/status/%d", statusCode), "https://www.alura.com.br/", "https://www.xvideos.com/", "https://www.uol.com.br/"}
-	fmt.Println("Iniciando Monitoramento...")
 
-	for i := 0; i < len(sites); i++ {
-		println(sites[i])
+	fmt.Println("Iniciando Monitoramento...")
+	for i := 0; i < monitoramento; i++ {
+		for i := 0; i < len(sites); i++ {
+			testaSite(sites[i])
+		}
+		time.Sleep(delay * time.Second)
 	}
 
-	site := sites[0]
+}
 
+func testaSite(site string) {
 	response, err := http.Get(site)
 
+	fmt.Printf("Site: %s: \n", site)
+
 	if response.StatusCode == 200 {
-		fmt.Printf("O status do site: %d", response.StatusCode)
+		fmt.Printf("O status do site: %d\n", response.StatusCode)
 	} else {
-		fmt.Printf("O status do site: %d, o error: %s", response.StatusCode, err)
+		fmt.Printf("O status do site: %d, o error: %s\n", response.StatusCode, err)
 	}
-	fmt.Println("O status: ", response.Status)
 }
 
 func exibirNomes() {
