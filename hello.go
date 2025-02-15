@@ -53,7 +53,7 @@ func condicionalIfElse(comando int) {
 		if comando == 1 {
 			iniciarMonitoramento(200)
 		} else if comando == 2 {
-			fmt.Println("Exibindo Logs...")
+			imprimeLogs()
 		} else if comando == 0 {
 			fmt.Println("Saindo do Programa...")
 			comandoDesistencia = true
@@ -150,7 +150,34 @@ func registrandoLogs(site string, status bool) {
 		fmt.Println("Ocorreu um error: ", err)
 	}
 
-	arquivo.WriteString(site + "- online: " + strconv.FormatBool(status) + "\n")
+	hojeAgora := time.Now().Format("02/01/2006 15:04:05")
+
+	arquivo.WriteString(hojeAgora + " - " + site + "- online: " + strconv.FormatBool(status) + "\n")
+	arquivo.Close()
+}
+
+func imprimeLogs() {
+	fmt.Println("Exibindo Logs...")
+	arquivo, err := os.Open("logs.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um error: ", err)
+	}
+
+	leitor := bufio.NewReader(arquivo)
+
+	for {
+		linha, errLeitor := leitor.ReadString('\n')
+
+		if errLeitor != nil && errLeitor != io.EOF {
+			fmt.Printf("Error gerado %s", errLeitor)
+		} else if errLeitor == io.EOF {
+			break
+		}
+		linha = strings.TrimSpace(linha)
+		fmt.Println(linha)
+	}
+
 	arquivo.Close()
 }
 
